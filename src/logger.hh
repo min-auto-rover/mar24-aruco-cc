@@ -25,26 +25,59 @@
 #include <iostream>
 #include <string>
 
+#define DEFAULT_FILENAME "/var/log/marvision.log"
+
+#define log_debug (Logger::get_instance() << Logger::LogLevel::DEBUG)
+#define log_info  (Logger::get_instance() << Logger::LogLevel::INFO)
+#define log_warn  (Logger::get_instance() << Logger::LogLevel::WARN)
+#define log_error (Logger::get_instance() << Logger::LogLevel::ERROR)
+#define log_crit  (Logger::get_instance() << Logger::LogLevel::CRIT)
+
+/**
+ * @brief A singleton logger for marvision
+ *
+ * Use the macros to log. See documentations for `enum class LogLevel` for
+ * usage.
+ */
 class Logger {
 public:
+	/**
+	 * The log level.
+	 */
 	enum class LogLevel {
-		DEBUG,
-		INFO,
-		WARN,
-		ERROR,
-		CRIT
+		DEBUG, ///< log using `log_debug << "message"`
+		INFO,  ///< log using `log_info << "message"`
+		WARN,  ///< log using `log_warn << "message"`
+		ERROR, ///< log using `log_error << "message"`
+		CRIT   ///< log using `log_crit << "message"`
 	};
 private:
 	LogLevel loglevel;
 	FILE* logfile;
 	LogLevel curr_msg_loglevel;
 	std::string print_log_level(LogLevel loglevel) const;
-public:
 	Logger(const std::string& filename, LogLevel level = LogLevel::INFO);
 	~Logger();
+	static Logger* instance;
+public:
+	/**
+	 * Get the instance of the singleton logger. If not exist, create the
+	 * instance with the args provided.
+	 */
+	static Logger& get_instance(
+		const std::string& filename = DEFAULT_FILENAME,
+		LogLevel level = LogLevel::DEBUG);
+	/**
+	 * Log a message.
+	 *
+	 * @param message  the message to log
+	 * @param level    the log level
+	 */
 	void log(const std::string& message, LogLevel level);
 	Logger& operator<<(LogLevel level);
 	Logger& operator<<(const std::string& message);
+	Logger (const Logger&) = delete;
+	Logger& operator=(const Logger&) = delete;
 };
 
 #endif // LOGGER_HH

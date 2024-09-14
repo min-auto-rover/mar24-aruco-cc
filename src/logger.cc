@@ -26,11 +26,15 @@
 #include <cstring>
 #include <ctime>
 
+Logger* Logger::instance = nullptr;
+
 Logger::Logger(const std::string& filename, LogLevel level)
 	: loglevel(level), curr_msg_loglevel(level), logfile(nullptr) {
 	logfile = fopen(filename.c_str(), "a");
 	if (!logfile) {
-		std::cerr << "Could not open log file: " << filename << " (" << errno << ": " << strerror(errno) << ")" << std::endl;
+		std::cerr << "Could not open log file: " << filename
+			  << " (" << errno << ": " << strerror(errno) << ")"
+			  << std::endl;
 	}
 }
 
@@ -38,6 +42,14 @@ Logger::~Logger() {
 	if (logfile) {
 		fclose(logfile);
 	}
+}
+
+Logger&
+Logger::get_instance(const std::string& filename, LogLevel level) {
+	if (!instance) {
+		instance = new Logger(filename, level);
+	}
+	return *instance;
 }
 
 std::string
@@ -62,8 +74,10 @@ Logger::log(const std::string& message, LogLevel level) {
 	if (logfile && level >= loglevel) {
 		std::time_t now = std::time(nullptr);
 		char time_str[200];
-		std::strftime(time_str, sizeof time_str, "%Y-%m-%d %H:%m:%s", std::localtime(&now));
-		fprintf(logfile, "%s [%s] %s\n", time_str, print_log_level(level).c_str(), message.c_str());
+		std::strftime(time_str, sizeof time_str, "%Y-%m-%d %H:%M:%S",
+			      std::localtime(&now));
+		fprintf(logfile, "%s [%s] %s\n", time_str,
+			print_log_level(level).c_str(), message.c_str());
 		fflush(logfile);
 	}
 }
