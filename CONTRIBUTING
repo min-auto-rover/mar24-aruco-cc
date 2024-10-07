@@ -1,0 +1,147 @@
+CONTRIBUTING TO MARVISION
+
+Version 1, Autumn 2024
+
+Copyright (c) 2024 The MAR Project Maintainers
+
+
+
+PREAMBLE
+========
+
+This project is licensed under GNU General Public License v3.0 or later
+(GPL-3.0-or-later).
+
+Please refer to ./COPYING for the full license. Any of your contributions will
+be licensed under COPYING.
+
+Please refer to ./CODE_OF_CONDUCT for the code of conduct. You must follow
+CODE_OF_CONDUCT to contribute.
+
+Thank you for considering contributing to the MAR project. This project is
+supervised by Dr Klaus-Peter Zauner. It is students like you that make this
+project awesome.
+
+
+SETUP
+=====
+
+Editor
+------
+You are strongly suggested to use Emacs or other text-based editors. This
+project requires cross-compilation, thus an IDE is likely to provide wrong code
+suggestions.
+
+Environment
+-----------
+You should also follow the instructions in README to obtain and setup the SDK.
+You should use a language server that saves your time. For example, if you are
+using clangd, you may want to create a file called compile_flags.txt and include
+the following lines as a minimum configuration:
+> -Wall
+> -I/path/to/sysroots/arm1176jzfshf-vfp-oe-linux-gnueabi/usr/include
+>
+which enables all warnings and tells the complier where to find the libraries.
+Please note that during compilations, all warnings will be treated as errors and
+will stop the compile process. You must ensure that there are zero warnings in
+the code when you submit.
+
+We assume that you know how to use GNU Autotools, the build system.
+
+Code Style
+----------
+
+Inherits Linux
+..............
+
+The code style is almost the same as the linux style. The only difference is the
+braces for functions. Instead of
+> int
+> main(int argc, char* argv[]) // newline here
+> {
+>         // foo
+> }
+we omit that line break and use the following:
+> int
+> main(int argc, char* argv[]) {
+>         // foo
+> }
+
+Make use of M-x c-set-style <RET> linux <RET> if using Emacs.
+
+Tab Width
+.........
+
+The tab width is 8 characters. A tab is never 4 characters wide, nor 2
+characters wide. A tab is not 8 spaces. A tab is one '\t' character.
+
+Line Width
+..........
+
+A line should never exceed 80 characters. Break the line using proper C/C++
+syntax if the line exceeds 80 characters. A tab consumes 8 characters space.
+Beware that the code is possible to be reviewed on the Linux system we built
+over serial, and any lines exceeding 80 characters will cause trouble.
+
+Make use of auto-fill-mode if using Emacs.
+
+
+COMMIT
+======
+
+Git
+---
+
+Please write useful commit messages. You must sign your commit using your GPG
+key.
+
+Patch
+-----
+
+If you want to send us a patch, please email to the active maintainers.
+
+
+BUG REPORT
+==========
+
+File Bug Report
+---------------
+
+Include all relevant information below.
+
+- Title
+  Describe the bug.
+
+- To reproduce
+  How to reproduce the bug.
+
+- Expected behaviour
+  What you expect to happen.
+
+- Environment
+  Choose from {marlinux, linux-arm64, linux-armhf, linux-x86-64, darwin,
+  windows} or others.
+  Include output of `uname -a` if not marlinux.
+  If you did not use the SDK to compile, please state.
+
+- Version
+  Include version, release candidate version or git revision.
+
+- Details
+  Any additional information.
+
+Security Considerations
+-----------------------
+
+YOU MUST NEVER REPORT ANY SECURITY RELATED ISSUES, VULNERABILITIES OR BUGS, OR
+ANY SENSITIVE INFORMATION TO THE PUBLIC GIT ISSUE TRACKER OR ELSEWHERE IN
+PUBLIC. Instead, sensitive bugs must be sent by emails or patches, must be
+signed, ideally be encrypted, to <qs2g22@soton.ac.uk>. The GPG Public Key of
+this email address can be found at <https://git.soton.ac.uk/qs2g22.gpg>.
+
+
+POSTAMBLE
+=========
+
+Thank you again for contributing to the MAR project. Should you have any
+questions or suggestions, please open an issue or contact <qs2g22@soton.ac.uk>.
