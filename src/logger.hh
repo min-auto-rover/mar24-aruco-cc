@@ -27,6 +27,8 @@
 
 #define DEFAULT_FILENAME "/var/log/marvision.log"
 
+#define LOG_COPY_STDERR
+
 #define log_debug (Logger::get_instance() << Logger::LogLevel::DEBUG)
 #define log_info  (Logger::get_instance() << Logger::LogLevel::INFO)
 #define log_warn  (Logger::get_instance() << Logger::LogLevel::WARN)
@@ -79,5 +81,7 @@ public:
 	Logger (const Logger&) = delete;
 	Logger& operator=(const Logger&) = delete;
 };
+
+typedef Logger logger;
 
 #endif // LOGGER_HH

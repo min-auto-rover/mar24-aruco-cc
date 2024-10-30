@@ -76,9 +76,13 @@ Logger::log(const std::string& message, LogLevel level) {
 		char time_str[200];
 		std::strftime(time_str, sizeof time_str, "%Y-%m-%d %H:%M:%S",
 			      std::localtime(&now));
-		fprintf(logfile, "%s [%s] %s\n", time_str,
+		fprintf(logfile, "%s [%s] \t%s\n", time_str,
 			print_log_level(level).c_str(), message.c_str());
 		fflush(logfile);
+#ifdef LOG_COPY_STDERR
+		fprintf(stderr, "%s [%s] \t%s\n", time_str,
+			print_log_level(level).c_str(), message.c_str());
+#endif
 	}
 }
 
