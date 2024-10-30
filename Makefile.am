@@ -1,3 +1,3 @@
 AUTOMAKE_OPTIONS = subdir-objects
-SUBDIRS = src
+SUBDIRS = src etc
 EXTRA_DIST = COPYING

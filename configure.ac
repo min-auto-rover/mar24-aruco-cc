@@ -4,5 +4,5 @@ AC_PROG_CXX
 AC_PROG_CC
 PKG_CHECK_MODULES([OPENCV],[opencv4])
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile etc/Makefile])
 AC_OUTPUT
