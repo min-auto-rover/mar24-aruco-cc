@@ -1,0 +1,9 @@
+%YAML:1.0
+---
+nmarkers: 4
+markersize: 4
+maxCorrectionBits: 3
+marker_0: "0101001100101100"
+marker_1: "1010111110001111"
+marker_2: "0010000000111111"
+marker_3: "0001001010010110"
